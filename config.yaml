@@ -1,0 +1,25 @@
+# yaml-language-server: $schema=./node_modules/envio/evm.schema.json
+name: envio-indexer
+networks:
+  - id: 11155111
+    start_block: 9550990
+    contracts:
+      - name: Dapper
+        address:
+          - 0x3D75d53bFF3Fc2A45D3A75c74D54FbCb95Dba3e3
+          - 0xdbD994010B6148D310eDc7e66bE1d118d760b53B
+        handler: src/EventHandlers.ts
+        events:
+          - event: Initialized(address indexed depositToken, uint256 interestRateBps, address yieldVault, address beneficiaryVault)
+          - event: Approval(address indexed owner, address indexed spender, uint256 value)
+          - event: Deposit(address indexed sender, address indexed owner, uint256 assets, uint256 shares)
+          - event: Staked(uint256 indexed stakeId, address indexed user, uint256 amountStaked, uint256 lockDuration, uint256 unlockTimestamp, uint256 interestPaid)
+          - event: Transfer(address indexed from, address indexed to, uint256 value)
+          - event: Unstaked(uint256 indexed stakeId, address indexed receiver, uint256 feeGenerated)
+          - event: Withdraw(address indexed sender, address indexed receiver, address indexed owner, uint256 assets, uint256 shares)
+          - event: InterestRateBpsSet(uint256 interestRateBps)
+unordered_multichain_mode: true
+preload_handlers: true
+field_selection:
+  transaction_fields:
+    - hash

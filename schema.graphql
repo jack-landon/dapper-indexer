@@ -1,0 +1,49 @@
+type Vault {
+  id: ID!
+  depositToken: String!
+  yieldVault: String!
+  beneficiaryVault: BeneficiaryVault!
+  interestRateBps: BigInt!
+  currentAmountLocked: BigInt!
+  lifetimeValueLocked: BigInt!
+  lifetimeInterestPaid: BigInt!
+}
+
+type User {
+  id: ID!
+  address: String!
+  stakes: [Stake!]! @derivedFrom(field: "user")
+}
+
+type Stake {
+  id: ID! # address + "-" + stakeId
+  stakeId: BigInt!
+  user: User!
+  amountStaked: BigInt!
+  lockDuration: BigInt!
+  unlockTimestamp: BigInt!
+  interestPaid: BigInt!
+  depositTimestamp: Int!
+  withdrawTimestamp: Int
+  depositTxHash: String!
+  withdrawTxHash: String
+  tokenAddress: String!
+  vaultAddress: String!
+}
+
+type BeneficiaryVault {
+  id: ID!
+  tokenAddress: String!
+  lifetimeValueContributed: BigInt!
+  contributions: [BeneficiaryContribution!]!
+    @derivedFrom(field: "beneficiaryVault")
+}
+
+type BeneficiaryContribution {
+  id: ID!
+  beneficiaryVault: BeneficiaryVault!
+  stake: Stake!
+  amount: BigInt!
+  contributionTimestamp: Int!
+  contributionTxHash: String!
+}
