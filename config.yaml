@@ -1,13 +1,14 @@
 # yaml-language-server: $schema=./node_modules/envio/evm.schema.json
 name: envio-indexer
 networks:
-  - id: 11155111
-    start_block: 9550990
+  - id: 31611
+    rpc: https://rpc.test.mezo.org
+    start_block: 8470000
     contracts:
       - name: Dapper
         address:
-          - 0x3D75d53bFF3Fc2A45D3A75c74D54FbCb95Dba3e3
-          - 0xdbD994010B6148D310eDc7e66bE1d118d760b53B
+          - 0x7F3534743D998ef4a9894624b49CCd45Aa4fffD8
+          - 0x3eE563948E28f33160969e648864E1A02a06EaE8
         handler: src/EventHandlers.ts
         events:
           - event: Initialized(address indexed depositToken, uint256 interestRateBps, address yieldVault, address beneficiaryVault)
